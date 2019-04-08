@@ -34,4 +34,8 @@ export class MasterPage implements OnInit {
     this.router.navigate(["tabs/tabs/tab3"]);
   }
 
+  exerciseDetail() {
+  this.router.navigate(["/exercise-detail"]);
+  }
+
 }
