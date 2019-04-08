@@ -8,6 +8,17 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import * as firebase from 'firebase';
+//Initialize Firebase
+var config = {
+  apiKey: "AIzaSyCve5acLRX8UfIuU4GtMyFNxiKgGkDGWqM",
+  authDomain: "silverback-2d041.firebaseapp.com",
+  databaseURL: "https://silverback-2d041.firebaseio.com",
+  projectId: "silverback-2d041",
+  storageBucket: "silverback-2d041.appspot.com",
+  messagingSenderId: "1054455433263"
+};
+firebase.initializeApp(config);
 
 @NgModule({
   declarations: [AppComponent],

@@ -1,9 +1,39 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Master</ion-title>
+    <ion-title>
+      Silverback Training A-P-P
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+    <ion-card class="welcome-card">
+      <ion-card-header>
+        <ion-card-subtitle>Master page</ion-card-subtitle>
+        <ion-card-title>Welcome to Tyler and Dylan's app electric boogaloo</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p>Click any one of the links below to go to any of the linked pages</p>
+      </ion-card-content>
+    </ion-card>
+    <ion-list lines="none">
+      <ion-list-header>
+        <ion-label>App pages</ion-label>
+      </ion-list-header>
+      <ion-item (click)="signup()">
+        <ion-label>Signup page</ion-label>
+      </ion-item>
+      <ion-item (click)="login()">
+        <ion-label>Login page</ion-label>
+      </ion-item>
+      <ion-item (click)="tab1()">
+        <ion-label>Tab 1 (user dashboard)</ion-label>
+      </ion-item>
+      <ion-item (click)="tab2()">
+        <ion-label>Tab 2 (calendar)</ion-label>
+      </ion-item>
+      <ion-item (click)="tab3()">
+        <ion-label>Tab 3 (User Info)</ion-label>
+      </ion-item>
+    </ion-list>
 </ion-content>
