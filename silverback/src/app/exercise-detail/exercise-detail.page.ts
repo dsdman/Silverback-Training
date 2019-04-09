@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-exercise-detail',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./exercise-detail.page.scss'],
 })
 export class ExerciseDetailPage implements OnInit {
-
-  constructor() { }
+  name = "Bench";
+  weight = 135;
+  Reps = "8-12";
+  setNum = 3;
+  constructor(private route: ActivatedRoute,
+    private router: Router,) { }
 
   ngOnInit() {
   }
-
+  goBack(){
+    this.router.navigate(['./tabs/tabs/tab1']);
+  }
 }
