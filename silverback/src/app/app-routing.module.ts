@@ -8,7 +8,8 @@ const routes: Routes = [
   { path: 'master', loadChildren: './master/master.module#MasterPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'exercise-detail', loadChildren: './exercise-detail/exercise-detail.module#ExerciseDetailPageModule' }
+  { path: 'exercise-detail', loadChildren: './exercise-detail/exercise-detail.module#ExerciseDetailPageModule' },  { path: 'day-detail', loadChildren: './day-detail/day-detail.module#DayDetailPageModule' }
+
 ];
 @NgModule({
   imports: [

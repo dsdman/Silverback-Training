@@ -37,5 +37,8 @@ export class MasterPage implements OnInit {
   exerciseDetail() {
   this.router.navigate(["/exercise-detail"]);
   }
+  dayDetail() {
+    this.router.navigate(["/day-detail"]);
+    }
 
 }
