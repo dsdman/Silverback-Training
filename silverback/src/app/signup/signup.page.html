@@ -1,9 +1,132 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Signup</ion-title>
+  <ion-toolbar color = "danger">
+  	<ion-buttons slot="start">
+      <ion-button (click)="goBack()">Back</ion-button>
+    </ion-buttons>
+    <ion-title>Sign-Up Page</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding color = "dark">
+
+  <ion-slides pager="true">
+    <ion-slide>
+      <ion-list inset="false" lines = "full" size="">
+      <ion-item color = "medium">
+        <ion-label color="danger" position = "stacked" >Email</ion-label>
+        <ion-input type="text" [(ngModel)]="user.email" required></ion-input>
+      </ion-item>
+      <ion-item color = "medium">
+        <ion-label color="danger" position = "stacked">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="user.password" required></ion-input>
+      </ion-item>
+      <ion-item color = "medium">
+        <ion-label color="danger" position = "stacked">Name</ion-label>
+        <ion-input type="text" [(ngModel)]="user.name"required></ion-input>
+      </ion-item>
+      <ion-item color = "medium">
+        <ion-label color="danger" position = "stacked">Age</ion-label>
+        <ion-input type="number" [(ngModel)]="user.age" required></ion-input>
+      </ion-item>
+      <ion-item color = "medium">
+        <ion-label color="danger" position = "stacked">Height</ion-label>
+        <ion-input type="number" [(ngModel)]="user.height" required></ion-input>
+      </ion-item>
+      <ion-item color = "medium">
+        <ion-label color="danger" position = "stacked">Weight</ion-label>
+        <ion-input type="number"  required></ion-input>
+      </ion-item>
+      <ion-item color = "medium">
+        <ion-label color="danger" position = "stacked">Gender</ion-label>
+        <ion-select [(ngModel)]="user.gender" required>
+          <ion-select-option value="Male">Male</ion-select-option>
+          <ion-select-option value="Female">Female</ion-select-option>
+          <ion-select-option value="Other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-item color = "medium">
+          <ion-label color="danger"  position = "stacked">Availabilty </ion-label>
+          <ion-select [(ngModel)]="user.Availabilty" multiple="true" required placeholder="Select All that Apply">
+            <ion-select-option value="Monday">Mon</ion-select-option>
+            <ion-select-option value="Tuesday">Tues</ion-select-option>
+            <ion-select-option value="Wensday">Wens</ion-select-option>
+            <ion-select-option value="Thursday">Thurs</ion-select-option>
+            <ion-select-option value="Friday">Fri</ion-select-option>
+            <ion-select-option value="Saturday">Sat</ion-select-option>
+            <ion-select-option value="Sunday">Sun</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </ion-slide>
+  <ion-slide>
+  
+  <ion-list color="medium">
+      <h1 class = "head">Current Stats:</h1>
+<ion-item color = "medium">
+  <ion-label color="danger" >Bench</ion-label>
+  <ion-input type="number" ></ion-input>
+</ion-item>
+<ion-item color = "medium">
+  <ion-label color="danger" >Squat</ion-label>
+  <ion-input type="number"  ></ion-input>
+</ion-item>
+<ion-item color = "medium">
+  <ion-label color="danger" >Deadlift</ion-label>
+  <ion-input type="number"  ></ion-input>
+</ion-item>
+<ion-item color = "medium">
+  <ion-label color="danger" >Number of Push-ups</ion-label>
+  <ion-input type="number" ></ion-input>
+</ion-item>
+<ion-item color = "medium">
+    <ion-label color="danger" >Number of Pull-ups</ion-label>
+    <ion-input type="number" ></ion-input>
+  </ion-item>
+<ion-item color = "medium">
+  <ion-label color="danger" >*Overall</ion-label>
+  <ion-select [(ngModel)]="user.current_overall" required>
+      <ion-select-option value="Complete Beginner">Complete Beginner</ion-select-option>
+      <ion-select-option value="Beginner">Beginner</ion-select-option>
+      <ion-select-option value="Intermediate">Intermediate</ion-select-option>
+      <ion-select-option value="Expert">Expert</ion-select-option>
+  </ion-select>
+</ion-item>
+</ion-list>
+</ion-slide>
+<ion-slide>
+
+<ion-list>
+    <h1>Target Stats</h1>
+<ion-item>
+  <ion-label color="medium" >Bench</ion-label>
+  <ion-input type="number" ></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label color="medium" >Squat</ion-label>
+  <ion-input type="number"  ></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label color="medium" >Deadlift</ion-label>
+  <ion-input type="number"  ></ion-input>
+</ion-item>
+<ion-item>
+  <ion-label color="medium" >Push-up</ion-label>
+  <ion-input type="number"  ></ion-input>
+</ion-item>
+<ion-item>
+    <ion-label color="medium" >*Overall</ion-label>
+    <ion-select [(ngModel)]="user.target_overall" required>
+        <ion-select-option value="Beginner">Beginner</ion-select-option>
+        <ion-select-option value="Intermediate">Intermediate</ion-select-option>
+        <ion-select-option value="Expert">Expert</ion-select-option>
+    </ion-select>
+</ion-item>
+<br/>
+
+<footer>  <ion-button class="submit-btn" expand="block" type="submit" (click)="signup()">Sign up</ion-button>
+</footer>
+</ion-list>
+</ion-slide>
+</ion-slides>
 
 </ion-content>
