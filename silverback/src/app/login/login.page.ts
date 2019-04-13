@@ -27,7 +27,7 @@ export class LoginPage implements OnInit {
   signup(){
     this.router.navigate(["/signup"]);
   } 
-  /*
+  
   login(item){
     var login = true;
     const email = item.email;
@@ -51,21 +51,18 @@ export class LoginPage implements OnInit {
         let usertypesRef = firebase.database().ref('usertypes/');
         usertypesRef.orderByChild("uid").equalTo(userid).on("value",function(data){
           data.forEach(function(thing){
-            if (thing.val().type == "owner") {
-              self.itemService.setIsOwner(true);
-            } else {
-              self.itemService.setIsOwner(false);
-            }
-            if(login === true) { self.tab1(self.itemService); }
           })
+          if(login == true){
+            self.tab1();
+          }
         });
     });
     //if (login == true){ self.tab1(self.itemService);}
 
   }
-*/
-  tab1(item){
-   this.router.navigate(["tabs/tabs/tab1"], item);
+
+  tab1(){
+   this.router.navigate(["tabs/tabs/tab1"]);
   } 
 }
 
