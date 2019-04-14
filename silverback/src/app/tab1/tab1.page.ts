@@ -1,5 +1,5 @@
 import { Component, OnInit} from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ItemserviceService } from '../itemservice.service';
 
 
@@ -19,6 +19,14 @@ export class Tab1Page implements OnInit {
     this.exercises = this.itemService.getExercises();
     console.log("Got exercises from itemService:");
     console.log(this.exercises);
+  }
+
+  exerciseDetail(item) {
+    console.log(item);
+    var index = this.exercises.indexOf(item); 
+    console.log("THIS IS THE SHIT I'm SENDING");
+    console.log(index);
+    this.router.navigate(["/exercise-detail"], item.sets);
   }
 
 }
