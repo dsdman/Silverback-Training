@@ -74,7 +74,7 @@ export class SignupPage implements OnInit {
     })
     .then(function(user) {
         const userid = firebase.auth().currentUser.uid;
-        const usertype = firebase.database().ref('usertypes/').push();
+        const usertype = firebase.database().ref('usertypes/'+userid).push();
         console.log(avail)
         usertype.set({
           'uid':        userid,
