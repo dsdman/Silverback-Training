@@ -92,7 +92,7 @@ export class SignupPage implements OnInit {
     const t_pullup = this.user.t_pullup;
     const t_overall = this.user.t_overall;
     const self = this;
-    console.log(avail)
+    //console.log(avail)
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
     console.log(error);
     const errorCode = error.code;
@@ -126,9 +126,9 @@ export class SignupPage implements OnInit {
   }
 
   generatePlan() {
-    //load the back preset
     let FinalPlan = []
 
+    //load the back preset
     var result = Object.keys(this.back).map((key)=> {
       return [Number(key), this.back[key]];
     });
@@ -157,8 +157,7 @@ export class SignupPage implements OnInit {
        this.legpre.push(result[i][1])
      }
 
-     //generates workout plan for 6,7 days avail, 2 days rest in each week
-     //1 workout preset exercise per day
+     //generates workout plan for days avail, days rest when not avail
      let temp = this.user.avail.length
      if(this.user.avail.length ==7 || this.user.avail.length ==6){
       FinalPlan.push(this.getDayExercise(this.backpre, this.user.avail[0]))
@@ -167,38 +166,36 @@ export class SignupPage implements OnInit {
       FinalPlan.push(this.getDayExercise(this.backpre, this.user.avail[4]))
       FinalPlan.push(this.getDayExercise(this.chestpre, this.user.avail[5]))
      }
-
      if(this.user.avail.length ==5){
       FinalPlan.push(this.getDayExercise(this.backpre, this.user.avail[0]))
       FinalPlan.push(this.getDayExercise(this.chestpre, this.user.avail[1]))
       FinalPlan.push(this.getDayExercise(this.legpre, this.user.avail[2]))
       FinalPlan.push(this.getDayExercise(this.armpre, this.user.avail[3]))
       FinalPlan.push(this.getDayExercise(this.chestpre, this.user.avail[4]))
-    }
-     //Generates workout plan for 4 days avail, 3 day rest
+     }
      if(this.user.avail.length ==4){
       FinalPlan.push(this.getDayExercise(this.chestpre, this.user.avail[0]))
       FinalPlan.push(this.getDayExercise(this.backpre, this.user.avail[1]))
       FinalPlan.push(this.getDayExercise(this.legpre, this.user.avail[2]))
       FinalPlan.push(this.getDayExercise(this.armpre, this.user.avail[3]))
-    }
+     }
 
     if(this.user.avail.length ==3){
       FinalPlan.push(this.getMultiDay(this.backpre, this.chestpre, this.user.avail[0]))
       FinalPlan.push(this.getMultiDay(this.legpre, this.armpre, this.user.avail[1]))
       FinalPlan.push(this.getMultiDay(this.backpre, this.chestpre, this.user.avail[2]))
     }
-
     if(this.user.avail.length ==2){
       FinalPlan.push(this.getMultiDay(this.backpre, this.chestpre, this.user.avail[0]))
       FinalPlan.push(this.getMultiDay(this.legpre, this.armpre, this.user.avail[1]))
     }
-
     if(this.user.avail.length ==1){
       FinalPlan.push(this.getMultiDay(this.backpre,this.chestpre,this.user.avail[0]))
       FinalPlan.push(this.getMultiDay(this.armpre,this.legpre,this.user.avail[0]))
     }
-
+    
+    //write the workout plan to firebase
+    console.log(FinalPlan);
     var userid = firebase.auth().currentUser.uid;
     firebase.database().ref('workout/'+userid).set({
       'FinalPlan': FinalPlan
@@ -210,20 +207,43 @@ export class SignupPage implements OnInit {
     var tgender = this.user.gender
     var tweight = this.user.weight
     var tskill = this.user.c_overall
-    var mclass = '';
     var wclass = '';
     //console.log(preset)
+
+    //get weight class and generate plan for each gender using lookup table
     if (tgender == 'Male'){
+      //get the weight class
+      if (tweight >= 0 && tweight <= 160) {
+        wclass = "Class1";
+        //console.log(wclass);
+      } else if (tweight >= 161 && tweight <= 220) {
+        wclass = "Class2";  
+        //console.log(wclass);
+      } else {
+        wclass = "Class3";     
+        //console.log(wclass);
+      }
       var workout = {
         day: day,
-        workout: this.malestrengthtable(mclass, tskill, preset)
+        workout: this.malestrengthtable(wclass, tskill, preset)
       };
       return workout
     } 
     if (tgender == 'Female'){
+      //get the weight class
+      if (tweight >= 0 && tweight <= 120) {
+        wclass = "Class1";
+        //console.log(wclass);
+      } else if (tweight >= 121 && tweight <= 200) {
+        wclass = "Class2";  
+        //console.log(wclass);
+      } else {
+        wclass = "Class3";     
+        //console.log(wclass);
+      }
       var workout = {
         day: day,
-        workout: this.femalestrengthtable(mclass, tskill, preset)
+        workout: this.femalestrengthtable(wclass, tskill, preset)
       };
       return workout
   }
@@ -255,11 +275,10 @@ export class SignupPage implements OnInit {
 
 
   malestrengthtable(wclass,skill,exercise){
-    //[x][y]
-    //[0][y] ->Exercises, [1][y]-> wclass, ... 
-    //TODO fill out the table and figure out to how to lookup based on skill level
-    //Exercise -> skill -> class1 weight-> class1 weight  , class2 beginner class1 + 10, inter class1+27, elite class 1+25
+    //Exercise -> lookup(skill, Exercise index) ---> class2 = class1 + 15, class3 = class 1+ 30
     //console.log(this.maletable)
+    let tempweight = 0;
+    var ex = [];
 
     //this is our x value (skill level)
     var skillNum = 0;
@@ -270,10 +289,9 @@ export class SignupPage implements OnInit {
     } else {
       skillNum = 3;
     }
-    var ex = [];
-    var exerNum = 0;
-    let tempweight = 0;
+
     //this is our y index (Exercise)
+    var exerNum = 0;
     for (let i = 0; i < exercise.length; ++i) {
       let name = "";
       let setNum = 0;
