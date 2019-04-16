@@ -8,10 +8,8 @@
 </ion-header>
 
 <ion-content padding color = "dark">
-
   <ion-slides pager="true">
     <ion-slide>
-      
       <ion-list inset="false" lines = "full" size="">
           <ion-button color="danger" class="submit-btn" expand="block" (click)="generatePlan()">test Plan Gen</ion-button>
           <ion-img [src]="imgfile"></ion-img>
@@ -61,88 +59,26 @@
           <ion-select [(ngModel)]="user.avail" multiple="true" required placeholder="Select All that Apply">
             <ion-select-option value="Monday">Mon</ion-select-option>
             <ion-select-option value="Tuesday">Tues</ion-select-option>
-            <ion-select-option value="Wensday">Wens</ion-select-option>
+            <ion-select-option value="Wednesday">Wednesday</ion-select-option>
             <ion-select-option value="Thursday">Thurs</ion-select-option>
             <ion-select-option value="Friday">Fri</ion-select-option>
             <ion-select-option value="Saturday">Sat</ion-select-option>
             <ion-select-option value="Sunday">Sun</ion-select-option>
           </ion-select>
         </ion-item>
-      </ion-list>
-    </ion-slide>
-  <ion-slide>
-  
-  <ion-list color="medium">
-      <ion-item color = "danger"><ion-label>Current Strength</ion-label></ion-item>
-      <ion-item color = "black"></ion-item>
     <ion-item color = "medium">
-  <ion-label color="danger" >Bench</ion-label>
-  <ion-input type="number" [(ngModel)]="user.c_bench"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >Squat</ion-label>
-  <ion-input type="number"  [(ngModel)]="user.c_squat"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >Deadlift</ion-label>
-  <ion-input type="number"  [(ngModel)]="user.c_deadlift"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >Number of Push-ups</ion-label>
-  <ion-input type="number" [(ngModel)]="user.c_pushup"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-    <ion-label color="danger" >Number of Pull-ups</ion-label>
-    <ion-input type="number" [(ngModel)]="user.c_pullup"></ion-input>
-  </ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >*Overall</ion-label>
-  <ion-select [(ngModel)]="user.c_overall" required>
-      <ion-select-option value="Complete Beginner">Complete Beginner</ion-select-option>
-      <ion-select-option value="Beginner">Beginner</ion-select-option>
-      <ion-select-option value="Intermediate">Intermediate</ion-select-option>
-      <ion-select-option value="Expert">Expert</ion-select-option>
-  </ion-select>
-</ion-item>
-</ion-list>
-</ion-slide>
-<ion-slide>
-<ion-list color = "medium">
-    <ion-item color = "danger"><ion-label>Target Goal</ion-label></ion-item>
-    <ion-item color = "black"></ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >Bench</ion-label>
-  <ion-input type="number" [(ngModel)]="user.t_bench"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >Squat</ion-label>
-  <ion-input type="number"  [(ngModel)]="user.t_squat"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >Deadlift</ion-label>
-  <ion-input type="number"  [(ngModel)]="user.t_deadlift"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >Push-up</ion-label>
-  <ion-input type="number"  [(ngModel)]="user.t_pushup"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-  <ion-label color="danger" >pull-up</ion-label>
-  <ion-input type="number"  [(ngModel)]="user.t_pullup"></ion-input>
-</ion-item>
-<ion-item color = "medium">
-    <ion-label color="danger" >*Overall</ion-label>
-    <ion-select [(ngModel)]="user.t_overall" required>
+      <ion-label color="danger" >*Overall</ion-label>
+      <ion-select [(ngModel)]="user.c_overall" required>
         <ion-select-option value="Beginner">Beginner</ion-select-option>
         <ion-select-option value="Intermediate">Intermediate</ion-select-option>
         <ion-select-option value="Expert">Expert</ion-select-option>
-    </ion-select>
-</ion-item>
-<ion-item color = "dark">
-</ion-item>
-<ion-button color="danger" class="submit-btn" expand="block" type="submit" (click)="signup()">Sign up</ion-button>
-</ion-list>
-</ion-slide>
+      </ion-select>
+    </ion-item>
+
+    <ion-item color = "dark"> </ion-item>
+  <ion-button color="danger" class="submit-btn" expand="block" type="submit" (click)="signup()">Sign up</ion-button>
+  </ion-list>
+  </ion-slide>
 </ion-slides>
 
 </ion-content>
