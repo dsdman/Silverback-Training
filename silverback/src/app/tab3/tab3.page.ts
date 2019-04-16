@@ -26,7 +26,6 @@ export class Tab3Page {
   constructor(private router:Router, public formBuilder:FormBuilder) {
     var userid = firebase.auth().currentUser.uid;
     console.log(userid)
-    var s = []
     var refs = firebase.database().ref('usertypes/' + userid.toString());
     refs.on('value', (snapshot) => {
       this.info = snapshot.val();  
