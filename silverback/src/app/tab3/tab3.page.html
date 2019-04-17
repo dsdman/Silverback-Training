@@ -3,7 +3,7 @@
     <ion-title>
       User Information
     </ion-title>
-    <ion-button (click)="edit()" *ngIf = "!hasclicked">Edit</ion-button>
+    <ion-button color="danger" (click)="edit()" *ngIf = "!hasclicked" slot="end"> <ion-icon name="create"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -17,11 +17,6 @@
           </ion-label>
         </ion-item>
         <ion-item color="dark"> 
-          <ion-label> Age: 
-            {{age}}
-          </ion-label>
-        </ion-item>
-        <ion-item color="dark"> 
           <ion-label> Weight: 
             {{weight}}
           </ion-label>
@@ -32,15 +27,15 @@
           </ion-label>
         </ion-item>
         <ion-item color="dark"> 
-          <ion-label> Target Goal: 
-            {{goal}}
+          <ion-label> Skill Level: 
+            {{level}}
           </ion-label>
         </ion-item>
   </ion-list>
 
   <!--show the User information-->
   <form [formGroup]="new_item_form" (submit)="editInfo(new_item_form.value)" *ngIf = "hasclicked">
-      <ion-button (click)="edit()">Back</ion-button>
+      <ion-button color="danger" (click)="edit()">Back</ion-button>
       <ion-item color="dark">
         <ion-label color="primary" position="floating" >Your Name</ion-label>
         <ion-input placeholder={{name}} type="text" formControlName="name" required></ion-input>
@@ -57,11 +52,15 @@
         <ion-label color="primary" position="floating">Your gender</ion-label>
         <ion-input placeholder={{gender}} type="text" formControlName="gender" required></ion-input>
       </ion-item>
-      <ion-item color="dark">
-        <ion-label color="primary" position="floating">Your Goal</ion-label>
-        <ion-input placeholder={{goal}} type="text" formControlName="goal" required></ion-input>
-      </ion-item>
   
-      <ion-button class="submit-btn" expand="block" type="submit" [disabled]="!new_item_form.valid">Edit</ion-button>
+    <ion-item color = "medium">
+      <ion-label>Skill Level</ion-label>
+      <ion-select formControlName="level" required>
+        <ion-select-option value="Beginner">Beginner</ion-select-option>
+        <ion-select-option value="Intermediate">Intermediate</ion-select-option>
+        <ion-select-option value="Expert">Expert</ion-select-option>
+      </ion-select>
+    </ion-item>
+      <ion-button color="danger" class="submit-btn" expand="block" type="submit" [disabled]="!new_item_form.valid">Edit</ion-button>
   </form>    
 </ion-content>
