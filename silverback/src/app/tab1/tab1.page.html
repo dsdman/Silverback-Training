@@ -7,14 +7,18 @@
 </ion-header>
 
 <ion-content color="dark">
-    <ion-list>
-      <ion-item *ngFor="let exercise of exercises" (click)="exerciseDetail(exercise)" color="dark">
-            <ion-label position="stacked">Exercise 1</ion-label>
-            <p>
-              {{ exercise.name }} <br/>
-              {{ exercise.setsDone }}/{{ exercise.sets.length }} completed
-            </p>
-      </ion-item>
-    </ion-list>
-
+  
+<ion-list>
+    <ion-item *ngFor="let exercise of exercises" (click)="exerciseDetail(exercise)" color="dark">
+        <ion-row>
+        <ion-col text-left> <strong> Exercise {{ exercise.Set }} </strong><br/> {{exercise.name}} </ion-col>
+        
+      </ion-row>
+      <ion-row text-right>
+        <ion-col></ion-col>
+          <ion-col text-right> <strong> {{ exercise.setsDone }}/{{ exercise.sets.length}} Completed </strong>   </ion-col>
+      </ion-row>
+     
+    </ion-item>
+  </ion-list>
 </ion-content>

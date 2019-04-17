@@ -1,58 +1,56 @@
 <ion-header>
   <ion-toolbar color="danger">
     <ion-title>
-      Week's Overview
+      Week Overview
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color="dark">
     <ion-list >
-        <ion-item color="dark">
+        <ion-item color="dark" (click)="exerciseDetail(exercise)">
             <ion-label stacked class="my-label"><div class="head">Monday </div>
-              Push Day</ion-label>
-              <p style="text-align: right"> 6 Exercises</p>
-              
-
+              </ion-label>
+              <p style="text-align: right"> 3 Exercises</p>
             </ion-item>
 
-          <ion-item color="dark">
+          <ion-item color="dark" (click)="exerciseDetail(exercise)">
               <ion-label stacked class="my-label"><div class="head">Tuesday </div>
-               Pull Day
+             
               </ion-label>              
-              <p style="text-align: right"> 5 Exercises</p>
+              <p style="text-align: right"> 3 Exercises</p>
             </ion-item>
             
-            <ion-item color="dark">
+            <ion-item color="dark" (click)="exerciseDetail(exercise)">
                 <ion-label stacked class="my-label"><div class="head">Wensday </div>
-                  Leg Day</ion-label>
-                  <p style="text-align: right"> 7 Exercises </p>
+                  </ion-label>
+                  <p style="text-align: right"> 4 Exercises </p>
 
             </ion-item>
 
             <ion-item color="dark">
                 <ion-label stacked class="my-label"><div class="head">Thursday </div>
-                  Rest Day
+                  
                   </ion-label>
-                  <p style="text-align: right"> N/A Exercises</p>
+                  <p style="text-align: right">Rest Day</p>
 
             </ion-item>
             <ion-item color="dark">
                 <ion-label stacked class="my-label"><div class="head">Friday </div>
-                  Push Day</ion-label>
-                  <p style="text-align: right"> 6 Exercises</p>
+                  </ion-label>
+                  <p style="text-align: right"> 3 Exercises</p>
 
             </ion-item>
             <ion-item color="dark">
                 <ion-label stacked class="my-label"><div class="head">Saturday </div>
-                  Pull Day</ion-label>
-                  <p style="text-align: right"> 5 Exercises</p>
+                  </ion-label>
+                  <p style="text-align: right"> 3 Exercises</p>
 
             </ion-item>
             <ion-item color="dark">
                 <ion-label stacked class="my-label"><div class="head">Sunday </div>
-                  Leg Or Rest Day</ion-label>
-                  <p style="text-align: right"> 7 Exercises  </p>
+                  </ion-label>
+                  <p style="text-align: right"> Rest Day  </p>
 
             </ion-item>
     </ion-list>

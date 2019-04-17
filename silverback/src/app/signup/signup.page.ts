@@ -8,28 +8,16 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./signup.page.scss'],
 })
 export class SignupPage implements OnInit {
-  imgfile="assets/l1.jpg";
+  imgfile="assets/Logo.jpg";
   user = {
     email: '',
     password: '',
     name: '',
-    age: 18,
-    height: 6.0,
-    weight: 180,
+    weight: 0,
     gender: '',
     avail: '',
-    c_bench: 45,
-    c_squat: 45,
-    c_deadlift: 45,
-    c_pushup: 5,
-    c_pullup: 0,
     c_overall: '',
-    t_bench: 45,
-    t_squat: 45,
-    t_deadlift: 45,
-    t_pushup: 5,
-    t_pullup: 0,
-    t_overall: '',
+   
   };
   back:any;
   backpre = []
@@ -74,23 +62,10 @@ export class SignupPage implements OnInit {
     const email = this.user.email;
     const password = this.user.password;
     const name = this.user.name;
-    const age = this.user.age;
-    const height = this.user.height;
     const weight = this.user.weight;
     const gender = this.user.gender;
     const avail = this.user.avail;
-    const c_bench = this.user.c_bench;
-    const c_deadlift = this.user.c_deadlift;
-    const c_squat = this.user.c_squat;
-    const c_pushup = this.user.c_pushup;
-    const c_pullup = this.user.c_pullup;
     const c_overall = this.user.c_overall;
-    const t_bench = this.user.t_bench;
-    const t_deadlift = this.user.t_deadlift;
-    const t_squat = this.user.t_squat;
-    const t_pushup = this.user.t_pushup;
-    const t_pullup = this.user.t_pullup;
-    const t_overall = this.user.t_overall;
     const self = this;
     //console.log(avail)
     firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
@@ -112,8 +87,6 @@ export class SignupPage implements OnInit {
         usertype.set({
           'uid':        userid,
           'name':       name,
-          'age':        age,
-          'height':     height,
           'weight':     weight,
           'gender':     gender,
           'avail':      avail,

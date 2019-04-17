@@ -16,9 +16,9 @@ export class Tab1Page implements OnInit {
 
   constructor(private router: Router, public itemService: ItemserviceService) {
     //this.exercises = this.itemService.getExercises();
-    this.exercises = [{"name":"Bench Press","weight":200,"sets":[{"reps":12, "weight":135}, {"reps":12, "weight":135}, {"reps":12, "weight":135}], "setsDone":0, "day":"Wednesday"}, 
-                      {"name":"Incline Dumbell Press","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":0}, 
-                      {"name":"Chest Fly","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":0}];
+    this.exercises = [{"Set": "1", "name":"Bench Press","weight":200,"sets":[{"reps":12, "weight":135}, {"reps":12, "weight":135}, {"reps":12, "weight":135}], "setsDone":"2", "day":"Wednesday"}, 
+                      {"Set": "2","name":"Incline Dumbell Press","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":"3"}, 
+                      {"Set": "3","name":"Chest Fly","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":"3"}];
 
     /*
     var userid = firebase.auth().currentUser.uid;
