@@ -1,9 +1,11 @@
 <ion-header>
   <ion-toolbar color="danger">
-    <ion-title>
+    <ion-title style="font-size: 25px;">
       User Information
     </ion-title>
     <ion-button color="danger" (click)="edit()" *ngIf = "!hasclicked" slot="end"> <ion-icon name="create"></ion-icon></ion-button>
+    <ion-button color="danger" (click)="edit()" *ngIf = "hasclicked">Back</ion-button>
+
   </ion-toolbar>
 </ion-header>
 
@@ -35,7 +37,6 @@
 
   <!--show the User information-->
   <form [formGroup]="new_item_form" (submit)="editInfo(new_item_form.value)" *ngIf = "hasclicked">
-      <ion-button color="danger" (click)="edit()">Back</ion-button>
       <ion-item color="dark">
         <ion-label color="primary" position="floating" >Your Name</ion-label>
         <ion-input placeholder={{name}} type="text" formControlName="name" required></ion-input>

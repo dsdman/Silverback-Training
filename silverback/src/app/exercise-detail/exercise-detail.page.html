@@ -15,24 +15,24 @@
         <ion-item color="dark">
             <ion-label stacked class="my-label"><div class="head">Set 1 </div>
               Reps:12   Weight:135</ion-label>
-              <ion-checkbox color="success"></ion-checkbox>   
+              <ion-checkbox color="success" [(ngModel)]="set.c1"></ion-checkbox>   
             </ion-item>
 
           <ion-item color="dark">
               <ion-label stacked class="my-label"><div class="head">Set 2 </div>
                 Reps:12   Weight:135</ion-label>
-                <ion-checkbox color="success"></ion-checkbox>   
+                <ion-checkbox color="success"  [(ngModel)]="set.c2" ></ion-checkbox>   
             </ion-item>
             
             <ion-item color="dark">
                 <ion-label stacked class="my-label"><div class="head">Set 3 </div>
                   Reps:12   Weight:135</ion-label>
-                <ion-checkbox color="success"></ion-checkbox>   
+                <ion-checkbox color="success" [(ngModel)]="set.c3"></ion-checkbox>   
             </ion-item>
 
 
     </ion-list>
-    <ion-button expand="block" color="danger">Done With Exercise?</ion-button>
+    <ion-button expand="block" color="danger" (click)="done()">Done With Exercise?</ion-button>
 
   
 

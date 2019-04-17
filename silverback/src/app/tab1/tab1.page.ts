@@ -13,9 +13,10 @@ import * as firebase from 'firebase';
 export class Tab1Page implements OnInit {
   exercises:any;
   exercisesArray = []
-
-  constructor(private router: Router, public itemService: ItemserviceService) {
+  setsDone
+  constructor(private router: Router, public itemService: ItemserviceService, private route: ActivatedRoute) {
     //this.exercises = this.itemService.getExercises();
+  
     this.exercises = [{"Set": "1", "name":"Bench Press","weight":200,"sets":[{"reps":12, "weight":135}, {"reps":12, "weight":135}, {"reps":12, "weight":135}], "setsDone":"2", "day":"Wednesday"}, 
                       {"Set": "2","name":"Incline Dumbell Press","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":"3"}, 
                       {"Set": "3","name":"Chest Fly","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":"3"}];
@@ -39,12 +40,17 @@ export class Tab1Page implements OnInit {
 
   ngOnInit() {
   }
-
+  getUpdate(){
+    this.route.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.setsDone = this.router.getCurrentNavigation().extras.state.count;
+      }
+    });
+    console.log(this.setsDone)   
+  }
   exerciseDetail(item) {
     console.log(item);
     var index = this.exercises.indexOf(item); 
-    console.log("THIS IS THE SHIT I'm SENDING");
-    console.log(index);
     this.router.navigate(["/exercise-detail"], item.sets);
   }
 

@@ -14,16 +14,19 @@ export class ItemserviceService {
   exerciseList:Array<any> = [];
 
   constructor() { 
-    console.log(this.exercises[0].sets.length);
+    //console.log(this.exercises[0].sets.length);
     //get user information
     //this.userInfo = this.getUserInfo();
-    console.log("TESTING USER INFO");
-    console.log(this.userInfo);
+    //console.log(this.userInfo);
   }
 
   //provide functions to get items, and save items
   getExercises() {
       return this.exercises;
+  }
+
+  setCount(count) {
+    return this.exercises;
   }
 
   //gets user info from firebase
