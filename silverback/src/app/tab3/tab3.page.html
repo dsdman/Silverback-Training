@@ -41,10 +41,6 @@
         <ion-input placeholder={{name}} type="text" formControlName="name" required></ion-input>
       </ion-item>
       <ion-item color="dark">
-        <ion-label color="primary" position="floating">Your Age</ion-label>
-        <ion-input placeholder={{age}} type="number" formControlName="age" required></ion-input>
-      </ion-item>
-      <ion-item color="dark">
         <ion-label color="primary" position="floating">Your weight</ion-label>
         <ion-input placeholder={{weight}} type="number" formControlName="weight" required></ion-input>
       </ion-item>
@@ -52,15 +48,14 @@
         <ion-label color="primary" position="floating">Your gender</ion-label>
         <ion-input placeholder={{gender}} type="text" formControlName="gender" required></ion-input>
       </ion-item>
-  
-    <ion-item color = "medium">
-      <ion-label>Skill Level</ion-label>
-      <ion-select formControlName="level" required>
-        <ion-select-option value="Beginner">Beginner</ion-select-option>
-        <ion-select-option value="Intermediate">Intermediate</ion-select-option>
-        <ion-select-option value="Expert">Expert</ion-select-option>
-      </ion-select>
-    </ion-item>
+      <ion-item color = "dark">
+        <ion-label>Skill Level</ion-label>
+        <ion-select formControlName="level" required>
+          <ion-select-option value="Beginner">Beginner</ion-select-option>
+          <ion-select-option value="Intermediate">Intermediate</ion-select-option>
+          <ion-select-option value="Expert">Expert</ion-select-option>
+        </ion-select>
+      </ion-item>
       <ion-button color="danger" class="submit-btn" expand="block" type="submit" [disabled]="!new_item_form.valid">Edit</ion-button>
   </form>    
 </ion-content>
