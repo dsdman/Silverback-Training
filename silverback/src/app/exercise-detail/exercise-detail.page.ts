@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router'; 
+import { ItemserviceService } from '../itemservice.service';
 
 
 @Component({
@@ -8,40 +9,41 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./exercise-detail.page.scss'],
 })
 export class ExerciseDetailPage implements OnInit {
-  cexe:any;
-  name = "";
-  weight = 0;
-  Reps = 0;
-  setNum = 0;
-  set = {
-    c1:false,
-    c2:false,
-    c3:false,
-
-  }
+  id: any;
+  sets = []
+  //sub:any;
   checked:boolean;
-
-  constructor(private route: ActivatedRoute, private router: Router) { 
-      console.log(this.cexe);
+  stuff;
+  constructor(private route: ActivatedRoute, private router: Router, public itemService: ItemserviceService) { 
+      //console.log(this.cexe);
   }
+ 
 
   ngOnInit() {
+    this.id = this.itemService.getExtras();
+    for(let i = 0; i < this.id.sets.length; i++){
+      let newset = {
+        reps: this.id.sets[i].reps,
+        weight: this.id.sets[i].weight,
+        setCounter: i+1,
+        isChecked: false
+      };
+      this.sets.push(newset);
+    }
   }
+
+  
   done(){
     var counter = 0
-    let rc = {
-      counter:0,
+    //console.log(this.sets)
+    for(let i = 0; i < this.sets.length; i++){
+      if(this.sets[i].isChecked == true){
+        counter++;
+      }
     }
-    if(this.set.c1 == true){
-      rc.counter += 1
-    }
-    if(this.set.c2 == true){
-      rc.counter += 1
-    }
-    if(this.set.c3 == true){
-      rc.counter+=1
-    }
-   
+    this.itemService.setCounter(counter)
+    this.router.navigate(['./tabs/tabs/tab1']);
+    
   }
 
 

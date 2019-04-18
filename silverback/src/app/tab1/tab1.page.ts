@@ -14,14 +14,46 @@ import { ExerciseDetailPage } from '../exercise-detail/exercise-detail.page';
 })
 
 export class Tab1Page implements OnInit {
+
   exercises:any;
   exe:Observable<any[]>;
   restday:boolean = false
   exercisesArray = []
+  counter:any;
   constructor(private router: Router, public itemService: ItemserviceService, private route: ActivatedRoute) {
+    this.counter = this.itemService.getCounter();
+    
     //var userid = firebase.auth().currentUser.uid;
     //console.log(userid)
-   var d = new Date();
+   let dayString = this.getDay()
+    var userid = "nQ6S99pYYzLhzHf4UFRgXfcFiuu1"
+    var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
+    refs.once('value', (snapshot) => {
+      this.exercises = snapshot.val();  
+    }).then(() => {
+      for (let i = 0; i < this.exercises.length; ++i) {
+        if (this.exercises[i].day == dayString) {
+          //console.log(this.exercises[i].workout);
+          this.exercisesArray = this.exercises[i].workout;
+        }
+      }
+      if (this.exercisesArray[0] == undefined){
+        console.log("REST DAY")
+        this.restday = true
+      }
+    });
+  }
+
+  ngOnInit() {
+    console.log(this.counter)
+  }
+  
+  exerciseDetail(id) {
+  this.itemService.setExtras(id)
+  this.router.navigate(['/exercise-detail']);
+  }
+  getDay(){
+    var d = new Date();
     var day = d.getDay();
     var dayString = "";
     if (day == 0) {
@@ -39,37 +71,6 @@ export class Tab1Page implements OnInit {
     } else if (day == 6) {
       dayString = "Saturday";
     }
-
-    var userid = "nQ6S99pYYzLhzHf4UFRgXfcFiuu1"
-    var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
-    refs.once('value', (snapshot) => {
-      this.exercises = snapshot.val();  
-    }).then(() => {
-      for (let i = 0; i < this.exercises.length; ++i) {
-        if (this.exercises[i].day == dayString) {
-          //console.log(this.exercises[i].workout);
-          this.exercisesArray = this.exercises[i].workout;
-        }
-      }
-      if (this.exercisesArray[0] == undefined){
-        console.log("REST DAY")
-        this.restday = true
-      }
-    });
-    //this.itemService.loadItems()
-    
- 
+    return dayString
   }
-
-  ngOnInit() {
-
-
-  }
-  
-  exerciseDetail(item) {
-    console.log(item);
-
-   this.router.navigate(["/exercise-detail"], item);
-  }
-
 }
