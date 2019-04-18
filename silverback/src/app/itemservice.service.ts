@@ -1,55 +1,62 @@
 import { Injectable } from '@angular/core';
-
+import { Observable} from 'rxjs';
+import { from } from 'rxjs';
+import * as firebase from 'firebase/app';
 @Injectable({
   providedIn: 'root'
 })
 export class ItemserviceService {
-  //this is user info
-  userInfo:Array<any> = []
-  //This is for the current day
-  exercises:Array<any> = [{"name":"Bench Press","weight":200,"sets":[{"reps":12, "weight":135}, {"reps":12, "weight":135}, {"reps":12, "weight":135}], "setsDone":0, "day":"Monday"}, 
-                          {"name":"Incline Dumbell Press","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":0}, 
-                          {"name":"Chest Fly","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":0}];
-  //This is for the whole week for day detail and tab2
-  exerciseList:Array<any> = [];
-
+  exe:Observable<any[]>;
+  exercises = [];
   constructor() { 
-    //console.log(this.exercises[0].sets.length);
-    //get user information
-    //this.userInfo = this.getUserInfo();
-    //console.log(this.userInfo);
+  }
+  getItems(){
+    
   }
 
-  //provide functions to get items, and save items
-  getExercises() {
-      return this.exercises;
+  getDate(){
+    var d = new Date();
+    var day = d.getDay();
+    var dayString = "";
+    if (day == 0) {
+      dayString = "Sunday";
+    } else if (day == 1) {
+      dayString = "Monday";
+    } else if (day == 2) {
+      dayString = "Tuesday";
+    } else if (day == 3) {
+      dayString = "Wednesday";
+    } else if (day == 4) {
+      dayString = "Thursday";
+    } else if (day == 5) {
+      dayString = "Friday";
+    } else if (day == 6) {
+      dayString = "Saturday";
+    }
+    return dayString
   }
 
-  setCount(count) {
-    return this.exercises;
-  }
-
-  //gets user info from firebase
-  getUserInfo() {
-    /*
-    var userid = firebase.auth().currentUser.uid;
-    console.log(userid)
-    var infoArray = []
-    var refs = firebase.database().ref('usertypes/' + userid.toString());
-    refs.on('value', (snapshot) => {
-      this.info = snapshot.val();  
-    })
-    var result = Object.keys(this.info).map((key)=> {
-      return [Number(key), this.info[key]];
+   loadItems(){
+    var exer = [];
+    var source
+    //console.log("LOADING ITEMS")
+    var dayString = this.getDate()
+    var userid = "nQ6S99pYYzLhzHf4UFRgXfcFiuu1"
+    var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
+    refs.once('value', (snapshot) => {
+      exer = snapshot.val();  
+    }).then(() => {      
+      for (let i = 0; i < exer.length; ++i) {
+        if (exer[i].day == dayString) {
+          //console.log(exer[i].workout)
+          source = from(exer[i].workout)
+        }
+      }
+      if (exer[0] == undefined){
+        console.log("REST DAY")
+      }
+      console.log(source)
+      return source
     });
-    console.log(result);
-    console.log(result[0][1].name)
-    infoArray = result;
-    return infoArray; */
   }
-  //generates a workout plan
-  generatePlan() {
-    //TODO generte 7 exercises and store them in the exerlistList array
-  }
-
 }

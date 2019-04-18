@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { ExerciseDetailPage } from './exercise-detail/exercise-detail.page';
 
 const routes: Routes = [
 //{ path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
@@ -8,7 +9,8 @@ const routes: Routes = [
   { path: 'master', loadChildren: './master/master.module#MasterPageModule' },
   { path: 'signup', loadChildren: './signup/signup.module#SignupPageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'exercise-detail', loadChildren: './exercise-detail/exercise-detail.module#ExerciseDetailPageModule' },  { path: 'day-detail', loadChildren: './day-detail/day-detail.module#DayDetailPageModule' }
+  { path: 'exercise-detail', loadChildren: './exercise-detail/exercise-detail.module#ExerciseDetailPageModule' },
+  { path: 'day-detail', loadChildren: './day-detail/day-detail.module#DayDetailPageModule' }
 
 ];
 @NgModule({

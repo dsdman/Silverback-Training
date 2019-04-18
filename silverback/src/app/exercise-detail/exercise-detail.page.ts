@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationExtras } from '@angular/router';
-import { ItemserviceService } from '../itemservice.service';
- 
+import { Router, ActivatedRoute } from '@angular/router'; 
+
 
 @Component({
   selector: 'app-exercise-detail',
@@ -9,7 +8,7 @@ import { ItemserviceService } from '../itemservice.service';
   styleUrls: ['./exercise-detail.page.scss'],
 })
 export class ExerciseDetailPage implements OnInit {
-  current_exercise:any;
+  cexe:any;
   name = "";
   weight = 0;
   Reps = 0;
@@ -22,17 +21,11 @@ export class ExerciseDetailPage implements OnInit {
   }
   checked:boolean;
 
-  constructor(private route: ActivatedRoute, private router: Router, public itemService: ItemserviceService) { 
+  constructor(private route: ActivatedRoute, private router: Router) { 
+      console.log(this.cexe);
   }
 
   ngOnInit() {
-     this.route.params.subscribe(
-        param => {
-          
-
-          this.current_exercise = param;
-      })
- 
   }
   done(){
     var counter = 0
@@ -48,12 +41,7 @@ export class ExerciseDetailPage implements OnInit {
     if(this.set.c3 == true){
       rc.counter+=1
     }
-    let navigationExtras: NavigationExtras = {
-      state: {
-        count: rc
-      }
-    };
-    this.router.navigate(['./tabs/tabs/tab1'], navigationExtras)
+   
   }
 
 

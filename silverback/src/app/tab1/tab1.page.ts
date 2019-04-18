@@ -1,7 +1,10 @@
 import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ItemserviceService } from '../itemservice.service';
+import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
+import { defaultStyleSanitizer } from '@angular/core/src/sanitization/sanitization';
+import { ExerciseDetailPage } from '../exercise-detail/exercise-detail.page';
 
 
 @Component({
@@ -12,46 +15,61 @@ import * as firebase from 'firebase';
 
 export class Tab1Page implements OnInit {
   exercises:any;
+  exe:Observable<any[]>;
+  restday:boolean = false
   exercisesArray = []
-  setsDone
   constructor(private router: Router, public itemService: ItemserviceService, private route: ActivatedRoute) {
-    //this.exercises = this.itemService.getExercises();
-  
-    this.exercises = [{"Set": "1", "name":"Bench Press","weight":200,"sets":[{"reps":12, "weight":135}, {"reps":12, "weight":135}, {"reps":12, "weight":135}], "setsDone":"2", "day":"Wednesday"}, 
-                      {"Set": "2","name":"Incline Dumbell Press","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":"3"}, 
-                      {"Set": "3","name":"Chest Fly","weight":100,"sets":[{"reps":3, "weight":40}, {"reps":3, "weight":40}, {"reps":5, "weight":30}], "setsDone":"3"}];
+    //var userid = firebase.auth().currentUser.uid;
+    //console.log(userid)
+   var d = new Date();
+    var day = d.getDay();
+    var dayString = "";
+    if (day == 0) {
+      dayString = "Sunday";
+    } else if (day == 1) {
+      dayString = "Monday";
+    } else if (day == 2) {
+      dayString = "Tuesday";
+    } else if (day == 3) {
+      dayString = "Wednesday";
+    } else if (day == 4) {
+      dayString = "Thursday";
+    } else if (day == 5) {
+      dayString = "Friday";
+    } else if (day == 6) {
+      dayString = "Saturday";
+    }
 
-    /*
-    var userid = firebase.auth().currentUser.uid;
-    console.log(userid)
+    var userid = "nQ6S99pYYzLhzHf4UFRgXfcFiuu1"
     var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
-    refs.on('value', (snapshot) => {
+    refs.once('value', (snapshot) => {
       this.exercises = snapshot.val();  
-    })
-    console.log(this.exercises);
-    //var result = Object.keys(this.exercises).map((key)=> {
-    //  return [Number(key), this.exercises[key]];
-    //});
-    //console.log(result);
-    //this.exercisesArray = result;
-    //console.log("Got exercises from Firebase:");
-    //console.log(this.exercises); */
+    }).then(() => {
+      for (let i = 0; i < this.exercises.length; ++i) {
+        if (this.exercises[i].day == dayString) {
+          //console.log(this.exercises[i].workout);
+          this.exercisesArray = this.exercises[i].workout;
+        }
+      }
+      if (this.exercisesArray[0] == undefined){
+        console.log("REST DAY")
+        this.restday = true
+      }
+    });
+    //this.itemService.loadItems()
+    
+ 
   }
 
   ngOnInit() {
+
+
   }
-  getUpdate(){
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.setsDone = this.router.getCurrentNavigation().extras.state.count;
-      }
-    });
-    console.log(this.setsDone)   
-  }
+  
   exerciseDetail(item) {
     console.log(item);
-    var index = this.exercises.indexOf(item); 
-    this.router.navigate(["/exercise-detail"], item.sets);
+
+   this.router.navigate(["/exercise-detail"], item);
   }
 
 }

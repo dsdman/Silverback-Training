@@ -8,50 +8,22 @@
 
 <ion-content color="dark">
     <ion-list >
-        <ion-item color="dark" (click)="exerciseDetail(exercise)">
-            <ion-label stacked class="my-label"><div class="head">Monday </div>
-              </ion-label>
-              <p style="text-align: right"> 3 Exercises</p>
-            </ion-item>
-
-          <ion-item color="dark" (click)="exerciseDetail(exercise)">
-              <ion-label stacked class="my-label"><div class="head">Tuesday </div>
-             
-              </ion-label>              
-              <p style="text-align: right"> 3 Exercises</p>
-            </ion-item>
-            
-            <ion-item color="dark" (click)="exerciseDetail(exercise)">
-                <ion-label stacked class="my-label"><div class="head">Wensday </div>
-                  </ion-label>
-                  <p style="text-align: right"> 4 Exercises </p>
-
-            </ion-item>
-
-            <ion-item color="dark">
-                <ion-label stacked class="my-label"><div class="head">Thursday </div>
-                  
-                  </ion-label>
-                  <p style="text-align: right">Rest Day</p>
-
-            </ion-item>
-            <ion-item color="dark">
-                <ion-label stacked class="my-label"><div class="head">Friday </div>
-                  </ion-label>
-                  <p style="text-align: right"> 3 Exercises</p>
-
-            </ion-item>
-            <ion-item color="dark">
-                <ion-label stacked class="my-label"><div class="head">Saturday </div>
-                  </ion-label>
-                  <p style="text-align: right"> 3 Exercises</p>
-
-            </ion-item>
-            <ion-item color="dark">
-                <ion-label stacked class="my-label"><div class="head">Sunday </div>
-                  </ion-label>
-                  <p style="text-align: right"> Rest Day  </p>
-
-            </ion-item>
+        <ion-item *ngFor="let week of weekly" (click)="exerciseDetail(exercise)" color="dark">
+          
+            <ion-grid>
+            <ion-row>
+              <ion-col align-self-start >
+                  {{week.day}}
+                  <br/>
+              </ion-col>
+              <ion-col align-self-end size = "5" style="text-align: center">
+                  {{week.workout.length}} Exercises 
+              </ion-col>
+              <ion-col align-self-center size="5">
+                  {{week.workoutType}}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
     </ion-list>
 </ion-content>
