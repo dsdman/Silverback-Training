@@ -22,36 +22,6 @@ export class Tab2Page{
     refs.on('value', (snapshot) => {
       this.updateData( snapshot.val());
     });
-    /*
-    refs.once('value', (snapshot) => {
-      this.week = snapshot.val();  
-    }).then(() => {
-      let counter = 0;
-      while (counter < 7) {
-        let inworkout = false;
-        for (let i = 0; i < this.week.length; ++i) {
-          //in the workout plan, use the plan
-          if(this.week[i].day == day[counter]) {
-            inworkout = true;
-            this.weekly.push({
-              'day': day[counter],
-              'workoutType': this.getType(this.week[i].workout),
-              'workout': this.week[i].workout
-            });
-          } 
-          
-        }
-
-        if (!inworkout) {
-          this.weekly.push({
-            'day': day[counter],
-            'workoutType': 'Rest',
-            'workout': []
-          });
-        }
-        ++counter;
-      }
-  })*/
 }
 updateData(data) {
   //variables that we need
@@ -130,7 +100,6 @@ ngOnInit() {
         rstring = rarray[i]
       }
     }
-    console.log(rstring)
     return rstring
   }
 

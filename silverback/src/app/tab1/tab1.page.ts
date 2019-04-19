@@ -22,10 +22,9 @@ export class Tab1Page implements OnInit {
   counter:any;
   restdaygif = 'assets/restDay.gif'
   constructor(private router: Router, public itemService: ItemserviceService, private route: ActivatedRoute) {
-    //var userid = firebase.auth().currentUser.uid;
-    //console.log(userid)
+    var userid = firebase.auth().currentUser.uid;
+    ////console.log(userid)
     let dayString = this.getDay()
-    var userid = this.itemService.userId
     var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
     refs.on('value', (snapshot) => {
       this.updateData( snapshot.val());
@@ -35,7 +34,7 @@ export class Tab1Page implements OnInit {
   updateData(data) {
     this.exercisesArray = [];
     let dayString = this.getDay()
-    //console.log(data)
+    ////console.log(data)
     this.exercises = data;
     for (let i = 0; i < this.exercises.length; ++i) {
       if (this.exercises[i].day == dayString) {
@@ -53,22 +52,22 @@ export class Tab1Page implements OnInit {
         }
       }
     }
-    console.log("ExerciseArry")
-    console.log(this.exercises)
+    //console.log("ExerciseArry")
+    ////console.log(this.exercises)
     if (this.exercisesArray[0] == undefined){
-      console.log("REST DAY")
+      //console.log("REST DAY")
       this.restday = true
     } else {
-      console.log("RUNNING_NOTREST")
+      //console.log("RUNNING_NOTREST")
       this.restday = false
     }
   }
 
   ngOnInit() {
     this.exe = this.itemService.getCounter();
-    //console.log(this.exe)
+    ////console.log(this.exe)
   }
-
+  
 
 
 

@@ -28,9 +28,9 @@ export class Tab3Page {
     var result = Object.keys(this.info).map((key)=> {
       return [Number(key), this.info[key]];
     });
-    console.log(result);
+   // console.log(result);
     for(let i =0; i < result.length; i++){
-      console.log(result[i])
+      //console.log(result[i])
       
     }
     this.infoArray = result;
@@ -39,13 +39,13 @@ export class Tab3Page {
 
   ngOnInit() {
   	this.new_item_form = this.formBuilder.group({
-      name: new FormControl('', Validators.required),
-      weight: new FormControl('', Validators.required),
-      level: new FormControl('', Validators.required),
-      avail: new FormControl('', Validators.required),
-      gender: new FormControl('', Validators.required),
+      name: new FormControl('blah', Validators.required),
+      weight: new FormControl('130', Validators.required),
+      level: new FormControl('Expert', Validators.required),
+      avail: new FormControl('Friday', Validators.required),
+      gender: new FormControl('Male', Validators.required),
     });
-    console.log(this.infoArray[3][1])
+    //console.log(this.infoArray[3][1])
     this.name = this.infoArray[3][1];
     this.weight = this.infoArray[4][1];
     this.gender = this.infoArray[2][1];
@@ -66,8 +66,8 @@ export class Tab3Page {
 
     
     //set the stuff in firebase
-    console.log(this.userid.toString())
-    console.log(value)
+    //console.log(this.userid.toString())
+    //console.log(value)
     var ref = firebase.database().ref('usertypes/' + this.userid.toString())  
     ref.set(value)
   
@@ -76,7 +76,6 @@ export class Tab3Page {
 
     this.edit();
   }
-
   //this is for the button in the header
   edit() {
     this.hasclicked = !this.hasclicked;
