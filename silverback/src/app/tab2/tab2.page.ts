@@ -4,6 +4,8 @@ import { Validators, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} f
 import * as firebase from 'firebase';
 import { WeekDay } from '@angular/common';
 import { getTypeNameForDebugging } from '@angular/core/src/change_detection/differs/iterable_differs';
+import { ItemserviceService } from '../itemservice.service';
+
 
 @Component({
   selector: 'app-tab2',
@@ -14,7 +16,7 @@ export class Tab2Page{
   week = []
   weekly = []
 
-  constructor(private router: Router, private route: ActivatedRoute) {
+  constructor(private router: Router, private route: ActivatedRoute,  public itemService: ItemserviceService) {
     var userid = firebase.auth().currentUser.uid;
     var day = this.getDay()
     var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
@@ -40,7 +42,7 @@ export class Tab2Page{
         if (!inworkout) {
           this.weekly.push({
             'day': day[counter],
-            'workoutType': 'Rest day',
+            'workoutType': 'Rest',
             'workout': []
           });
         }
@@ -104,6 +106,11 @@ export class Tab2Page{
     var day = d.getDay();
     var dayString = ["Sunday", "Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
     return dayString
+  }
+
+  dayDetail(id){
+    this.itemService.setDay(id)
+    this.router.navigate(['/day-detail']);
   }
 
 }

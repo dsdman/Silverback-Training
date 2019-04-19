@@ -14,19 +14,17 @@ import { ExerciseDetailPage } from '../exercise-detail/exercise-detail.page';
 })
 
 export class Tab1Page implements OnInit {
-
   exercises:any;
   exe:Observable<any[]>;
   restday:boolean = false
   exercisesArray = []
   counter:any;
+  restdaygif = 'assets/restDay.gif'
   constructor(private router: Router, public itemService: ItemserviceService, private route: ActivatedRoute) {
-    this.counter = this.itemService.getCounter();
-    
     //var userid = firebase.auth().currentUser.uid;
     //console.log(userid)
    let dayString = this.getDay()
-    var userid = "nQ6S99pYYzLhzHf4UFRgXfcFiuu1"
+    var userid = this.itemService.userId
     var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
     refs.once('value', (snapshot) => {
       this.exercises = snapshot.val();  
@@ -34,7 +32,17 @@ export class Tab1Page implements OnInit {
       for (let i = 0; i < this.exercises.length; ++i) {
         if (this.exercises[i].day == dayString) {
           //console.log(this.exercises[i].workout);
-          this.exercisesArray = this.exercises[i].workout;
+          console.log(this.exercises[i].workout)
+          for (let j = 0; j < this.exercises[i].workout.length; j++){
+            let newExercise = {
+              name: this.exercises[i].workout[j].name,
+              setNum: this.exercises[i].workout[j].setNum,
+              sets: this.exercises[i].workout[j].sets,
+              counter: 0
+            };
+            console.log(newExercise)
+            this.exercisesArray.push(newExercise);
+          }
         }
       }
       if (this.exercisesArray[0] == undefined){
@@ -45,9 +53,10 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.counter)
+    this.exe = this.itemService.getCounter();
+    console.log(this.exe)
   }
-  
+ 
   exerciseDetail(id) {
   this.itemService.setExtras(id)
   this.router.navigate(['/exercise-detail']);

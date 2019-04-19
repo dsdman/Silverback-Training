@@ -8,16 +8,21 @@
 
 <ion-content color="dark">
   <h1 *ngIf="restday" style="text-align: center">REST DAY</h1>
+  <ion-img *ngIf="restday" [src]="restdaygif"></ion-img>
+
 <ion-list>
     <ion-item *ngFor="let exercise of exercisesArray" (click)="exerciseDetail(exercise)" color="dark">
-        <ion-row>
-        <ion-col text-left> <strong> Exercise  </strong><br/> {{exercise.name}} </ion-col>
-      </ion-row>
-      <ion-row text-right>
-        <ion-col></ion-col>
-         <ion-col text-right> <strong> TODO/{{ exercise.setNum}} Completed </strong>  </ion-col>
-      </ion-row>
-
+      <ion-grid>
+          <ion-row>
+            <ion-col align-self-start >
+                Exercise <br/> {{exercise.name}}
+                <br/>
+            </ion-col>
+            <ion-col align-self-end size = "5" style="text-align: center">
+                {{exercise.counter}}/{{exercise.setNum}} Completed 
+            </ion-col>
+          </ion-row>
+        </ion-grid>
     </ion-item>
 
   </ion-list>

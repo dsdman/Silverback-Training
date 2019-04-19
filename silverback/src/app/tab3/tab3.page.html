@@ -9,9 +9,8 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content color="dark">
-  <!--TODO make this list show only if not owner-->
+  <!--Displays user information-->
   <ion-list *ngIf = "!hasclicked">
         <ion-item color="dark"> 
           <ion-label> Name: 
@@ -33,9 +32,14 @@
             {{level}}
           </ion-label>
         </ion-item>
+        <ion-item color="dark"> 
+            <ion-label> Days Available: 
+              {{avail}}
+            </ion-label>
+          </ion-item>
   </ion-list>
 
-  <!--show the User information-->
+  <!--Form for editing-->
   <form [formGroup]="new_item_form" (submit)="editInfo(new_item_form.value)" *ngIf = "hasclicked">
       <ion-item color="dark">
         <ion-label color="primary" position="floating" >Your Name</ion-label>
@@ -45,10 +49,13 @@
         <ion-label color="primary" position="floating">Your weight</ion-label>
         <ion-input placeholder={{weight}} type="number" formControlName="weight" required></ion-input>
       </ion-item>
-      <ion-item color="dark">
-        <ion-label color="primary" position="floating">Your gender</ion-label>
-        <ion-input placeholder={{gender}} type="text" formControlName="gender" required></ion-input>
-      </ion-item>
+      <ion-item color = "dark">
+          <ion-label>Gender</ion-label>
+          <ion-select formControlName="gender" required>
+            <ion-select-option value="Male">Male</ion-select-option>
+            <ion-select-option value="Female">Female</ion-select-option>
+          </ion-select>
+        </ion-item>
       <ion-item color = "dark">
         <ion-label>Skill Level</ion-label>
         <ion-select formControlName="level" required>
@@ -57,6 +64,18 @@
           <ion-select-option value="Expert">Expert</ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-item color = "dark">
+          <ion-label color="danger"  position = "stacked">Days Available</ion-label>
+          <ion-select formControlName="avail" multiple="true" required placeholder="Select All that Apply">
+            <ion-select-option value="Monday">Mon</ion-select-option>
+            <ion-select-option value="Tuesday">Tues</ion-select-option>
+            <ion-select-option value="Wednesday">Wed</ion-select-option>
+            <ion-select-option value="Thursday">Thurs</ion-select-option>
+            <ion-select-option value="Friday">Fri</ion-select-option>
+            <ion-select-option value="Saturday">Sat</ion-select-option>
+            <ion-select-option value="Sunday">Sun</ion-select-option>
+          </ion-select>
+        </ion-item>
       <ion-button color="danger" class="submit-btn" expand="block" type="submit" [disabled]="!new_item_form.valid">Edit</ion-button>
   </form>    
 </ion-content>

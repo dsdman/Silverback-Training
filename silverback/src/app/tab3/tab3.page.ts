@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { ItemserviceService } from '../itemservice.service';
 import { Validators, FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import * as firebase from 'firebase';
 @Component({
@@ -16,35 +17,41 @@ export class Tab3Page {
   weight=150;
   gender = "Male";
   level = "Beginner";
-  constructor(private router:Router, public formBuilder:FormBuilder) {
-    var userid = firebase.auth().currentUser.uid;
-    console.log(userid)
-    var refs = firebase.database().ref('usertypes/' + userid.toString());
+  avail = 'Monday';
+  userid = firebase.auth().currentUser.uid;
+  constructor(private router:Router, public itemService: ItemserviceService, public formBuilder:FormBuilder) {
+    var refs = firebase.database().ref('usertypes/' + this.userid.toString());
     refs.on('value', (snapshot) => {
       this.info = snapshot.val();  
+      //console.log(this.info)
     })
     var result = Object.keys(this.info).map((key)=> {
       return [Number(key), this.info[key]];
     });
     console.log(result);
-    console.log(result[0][1].name)
+    for(let i =0; i < result.length; i++){
+      console.log(result[i])
+      
+    }
     this.infoArray = result;
+    //console.log(result)
   }
 
   ngOnInit() {
-
   	this.new_item_form = this.formBuilder.group({
       name: new FormControl('', Validators.required),
       weight: new FormControl('', Validators.required),
-      gender: new FormControl('', Validators.required),
       level: new FormControl('', Validators.required),
+      avail: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required),
     });
-
-    this.name = this.infoArray[0][1].name;
-    this.weight = this.infoArray[0][1].weight;
-    this.gender = this.infoArray[0][1].gender;
-    this.level = this.infoArray[0][1].c_overall;
-
+    console.log(this.infoArray[3][1])
+    this.name = this.infoArray[3][1];
+    this.weight = this.infoArray[4][1];
+    this.gender = this.infoArray[2][1];
+    this.level = this.infoArray[1][1];
+    this.avail = this.infoArray[0][1];
+    
     //console.log(this.infoArray);
     //console.log(this.infoArray[1])
   }
@@ -53,12 +60,22 @@ export class Tab3Page {
   editInfo(value){
     this.name = value.name;
     this.weight = value.weight;
-    this.gender = value.gender;
     this.level = value.level;
+    this.avail = value.avail;
+    this.gender = value.gender;
+
+    
+    //set the stuff in firebase
+    console.log(this.userid.toString())
+    console.log(value)
+    var ref = firebase.database().ref('usertypes/' + this.userid.toString())  
+    ref.set(value)
+  
+    this.itemService.generatePlan(value);
+    //window.location.reload()
+
     this.edit();
   }
-
-  
 
   //this is for the button in the header
   edit() {
