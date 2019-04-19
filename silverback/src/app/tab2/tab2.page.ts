@@ -18,8 +18,11 @@ export class Tab2Page{
 
   constructor(private router: Router, private route: ActivatedRoute,  public itemService: ItemserviceService) {
     var userid = firebase.auth().currentUser.uid;
-    var day = this.getDay()
     var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
+    refs.on('value', (snapshot) => {
+      this.updateData( snapshot.val());
+    });
+    /*
     refs.once('value', (snapshot) => {
       this.week = snapshot.val();  
     }).then(() => {
@@ -48,14 +51,44 @@ export class Tab2Page{
         }
         ++counter;
       }
-  })
-  //console.log("WEEKLY");
-  console.log(this.weekly); 
+  })*/
+}
+updateData(data) {
+  //variables that we need
+  this.week = data;
+  var day = this.getDay()
+  this.weekly = [];
+
+  //load the arrays
+  let counter = 0;
+      while (counter < 7) {
+        let inworkout = false;
+        for (let i = 0; i < this.week.length; ++i) {
+          //in the workout plan, use the plan
+          if(this.week[i].day == day[counter]) {
+            inworkout = true;
+            this.weekly.push({
+              'day': day[counter],
+              'workoutType': this.getType(this.week[i].workout),
+              'workout': this.week[i].workout
+            });
+          } 
+          
+        }
+        if (!inworkout) {
+          this.weekly.push({
+            'day': day[counter],
+            'workoutType': 'Rest',
+            'workout': []
+          });
+        }
+        ++counter;
+      }
 }
 
-  ngOnInit() {
-   
-  }
+ngOnInit() {
+  
+}
   getType(workout){
     var rstring = ""
     let rarray = []

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵConsole } from '@angular/core';
 import { Observable} from 'rxjs';
 import { from } from 'rxjs';
 import * as firebase from 'firebase/app';
+import { userInfo } from 'os';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,10 +22,11 @@ export class ItemserviceService {
   chestpre = []
   leg:any;
   legpre = []
-  maletable = [["Barbell Curl" ,"Skullcrushers","Triceps Pushdown - Rope Attachment","Deadlift","Pull-Up","Pully Row","Bench Press","Chest Fly","Push-Up","Calf-Raise","Leg Press","Squat"], 
-                    [25,20,20,125,1,65,75,7,1,45,115,95], [75,70,80,235,15,140,155,65,45,205,335,190],[155,160,180,390,36,245,370,190,100,495,700,325]];
-  femaletable = [["Barbell Curl" ,"Skullcrushers","Triceps Pushdown - Rope Attachment","Deadlift","Pull-Up","Pully Row","Bench Press","Chest Fly","Push-Up","Calf-Raise","Leg Press","Squat"], 
-                    [10,10,10,65,1,35,25,5,1,20,60,50], [45,40,45,150,15,90,80,40,45,145,235,130],[100,105,105,280,37,160,170,190,120,350,525,245]];
+  femaletable = [["Barbell Curl" ,"Skullcrushers","Triceps Pushdown - Rope Attachment","Deadlift" ,"pullUp","pully row","Bench Press","Chest Fly","Push-Up","Calf Raise","Leg Press","Squat"], 
+                [0.1,0.08,0.11,0.61,1,0.34,0.27,0.05,1,0.19,0.66,0.47], [0.39,0.38,0.44,1.37,6,0.77,0.77,0.22,20,1.05,2.21,1.13],[0.5,0.88,0.96,2.44,20,1.38,1.53,0.54,50,2.58,4.66,2.13]];
+
+  maletable = [["Barbell Curl" ,"Skullcrushers","Triceps Pushdown - Rope Attachment","Deadlift","pullUp","pully row","Bench Press","Chest Fly","Push-Up","Calf Raise","Leg Press","Squat"], 
+              [0.25,0.24,0.23,1.09, 1, 0.58 ,0.068, 0.1, 0.43,1.13,0.91], [.58,.60,0.63,1.87,15,1.09,1.23,.34,45,1.32,2.85,1.61],[1.09,1.13,1.25,2.86,36,1.74,1.93,1.74,100,2.7,4.98,2.52]];                  
 
   constructor() { 
     var refs = firebase.database().ref('BackPreset/');
@@ -154,43 +156,20 @@ export class ItemserviceService {
     var tgender = user.gender
     var tweight = user.weight
     var tskill = user.level
-    var wclass = '';
-    //console.log(preset)
 
-    //get weight class and generate plan for each gender using lookup table
     if (tgender == 'Male'){
-      //get the weight class
-      if (tweight >= 0 && tweight <= 160) {
-        wclass = "Class1";
-        //console.log(wclass);
-      } else if (tweight >= 161 && tweight <= 220) {
-        wclass = "Class2";  
-        //console.log(wclass);
-      } else {
-        wclass = "Class3";     
-        //console.log(wclass);
-      }
       var workout = {
         day: day,
-        workout: this.malestrengthtable(wclass, tskill, preset)
+        //workout: this.malestrengthtable(wclass, tskill, preset)
+        workout: this.malestrengthtable(user.weight, tskill, preset)
+
       };
       return workout
     } 
     if (tgender == 'Female'){
-      //get the weight class
-      if (tweight >= 0 && tweight <= 120) {
-        wclass = "Class1";
-        //console.log(wclass);
-      } else if (tweight >= 121 && tweight <= 200) {
-        wclass = "Class2";  
-        //console.log(wclass);
-      } else {
-        wclass = "Class3";     
-        //console.log(wclass);
-      }
       var workout = {
         day: day,
-        workout: this.femalestrengthtable(wclass, tskill, preset)
+        workout: this.femalestrengthtable(user.weight, tskill, preset)
       };
       return workout
   }
@@ -201,8 +180,6 @@ private getMultiDay(user, preset1, preset2, day){
   let work1Workouts = work1.workout;
   let work2Workouts = work2.workout;
   let workouts = []
-  //console.log(work1Workouts);
-  //console.log(work2Workouts);
   for (let i = 0; i < 3; ++i) {
     workouts.push(work1Workouts[i]);
     workouts.push(work2Workouts[i]);
@@ -214,8 +191,9 @@ private getMultiDay(user, preset1, preset2, day){
   return workout
 }
 
-private malestrengthtable(wclass,skill,exercise){
-  //Exercise -> lookup(skill, Exercise index) ---> class2 = class1 + 15, class3 = class 1+ 30
+//private malestrengthtable(wclass,skill,exercise){
+  private malestrengthtable(weight,skill,exercise){
+
   //console.log(this.maletable)
   let tempweight = 0;
   var ex = [];
@@ -229,7 +207,7 @@ private malestrengthtable(wclass,skill,exercise){
   } else {
     skillNum = 3;
   }
-
+  //console.log(this.maletable)
   //this is our y index (Exercise)
   var exerNum = 0;
   for (let i = 0; i < exercise.length; ++i) {
@@ -241,18 +219,31 @@ private malestrengthtable(wclass,skill,exercise){
     let reps = ''
     //look it up
     for (let j = 0; j < this.maletable[0].length; ++j) {
-      if (exercise[i].name == this.maletable[0][j])
+      exerNum = 0
+      if (exercise[i].name == this.maletable[0][j]){
+        //console.log(this.maletable[0][j])
         exerNum = j
+      }
+      //console.log(this.maletable[skillNum][3])
+      console.log(exercise[i].name)
+     
     } 
-    if(wclass == 'Class2' && (exercise[i].name != 'Push-Up' && exercise[i].name != 'pullup')){
-      tempweight = Number(this.maletable[skillNum][exerNum]) + 15
-    } 
-    else if(wclass == 'Class3' && (exercise[i].name != 'Push-Up' && exercise[i].name != 'pullup')){
-      tempweight = Number(this.maletable[skillNum][exerNum]) + 30
-    } 
-    else {
-      tempweight = Number(this.maletable[skillNum][exerNum])
-    }
+    //console.log(this.maletable[skillNum][1])
+    //console.log(exercise[i].name)
+   // console.log(this.maletable[skillNum][exerNum])
+
+   if(exercise[i].name == 'Push-Up' || exercise[i].name == 'pullup'){
+    console.log(this.maletable[0][exerNum])
+    console.log(this.maletable[skillNum][exerNum])
+    tempweight = Number(this.maletable[skillNum][exerNum]);
+
+  } else {
+   // console.log(exerNum)
+    //console.log(this.maletable[0][exerNum])
+    //console.log(this.maletable[skillNum][exerNum])
+    tempweight = this.round5(Number(this.maletable[skillNum][exerNum]) * weight);
+  }
+
     name = exercise[i].name;
     setNum = exercise[i].setNum;
     for (let k = 0; k < setNum; ++k) {
@@ -279,9 +270,12 @@ private malestrengthtable(wclass,skill,exercise){
   }
   return ex
 }
+private  round5(x)
+{
+    return Math.ceil(x/5)*5;
+}
 
-
-private femalestrengthtable(wclass, skill, exercise) {
+private femalestrengthtable(weight, skill, exercise) {
   var skillNum = 0;
   if (skill == "Beginner") {
     skillNum = 1;
@@ -306,14 +300,16 @@ private femalestrengthtable(wclass, skill, exercise) {
       if (exercise[i].name == this.femaletable[0][j])
         exerNum = j
     } 
-    if(wclass == 'Class2' && (exercise[i].name != 'Push-Up' && exercise[i].name != 'pullup')){
-      tempweight = Number(this.femaletable[skillNum][exerNum]) + 5
-    } 
-    else if(wclass == 'Class3' && (exercise[i].name != 'Push-Up' && exercise[i].name != 'pullup')){
-      tempweight = Number(this.femaletable[skillNum][exerNum]) + 15
-    } 
-    else {
-      tempweight = Number(this.femaletable[skillNum][exerNum])
+    if((exercise[i].name != 'Push-Up' && exercise[i].name != 'pullup')) {
+      tempweight = this.round5(Number(this.femaletable[skillNum][exerNum]) * weight)
+    } else {
+      //console.log(exercise[i].name)
+      //console.log(weight)
+      //console.log("BEFORE")
+      //console.log(tempweight)
+      tempweight = Number(this.femaletable[skillNum][exerNum]);
+      //console.log("AFTER")
+      //console.log(tempweight)
     }
     name = exercise[i].name;
     setNum = exercise[i].setNum;

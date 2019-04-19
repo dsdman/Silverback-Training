@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import { defaultStyleSanitizer } from '@angular/core/src/sanitization/sanitization';
 import { ExerciseDetailPage } from '../exercise-detail/exercise-detail.page';
+import { async } from 'q';
 
 
 @Component({
@@ -23,40 +24,54 @@ export class Tab1Page implements OnInit {
   constructor(private router: Router, public itemService: ItemserviceService, private route: ActivatedRoute) {
     //var userid = firebase.auth().currentUser.uid;
     //console.log(userid)
-   let dayString = this.getDay()
+    let dayString = this.getDay()
     var userid = this.itemService.userId
     var refs = firebase.database().ref('workout/' + userid.toString() + '/FinalPlan');
-    refs.once('value', (snapshot) => {
-      this.exercises = snapshot.val();  
-    }).then(() => {
-      for (let i = 0; i < this.exercises.length; ++i) {
-        if (this.exercises[i].day == dayString) {
-          //console.log(this.exercises[i].workout);
-          console.log(this.exercises[i].workout)
-          for (let j = 0; j < this.exercises[i].workout.length; j++){
-            let newExercise = {
-              name: this.exercises[i].workout[j].name,
-              setNum: this.exercises[i].workout[j].setNum,
-              sets: this.exercises[i].workout[j].sets,
-              counter: 0
-            };
-            console.log(newExercise)
-            this.exercisesArray.push(newExercise);
-          }
+    refs.on('value', (snapshot) => {
+      this.updateData( snapshot.val());
+    });
+  }
+
+  updateData(data) {
+    this.exercisesArray = [];
+    let dayString = this.getDay()
+    //console.log(data)
+    this.exercises = data;
+    for (let i = 0; i < this.exercises.length; ++i) {
+      if (this.exercises[i].day == dayString) {
+        //console.log(this.exercises[i].workout);
+        //console.log(this.exercises[i].workout)
+        for (let j = 0; j < this.exercises[i].workout.length; j++){
+          let newExercise = {
+            name: this.exercises[i].workout[j].name,
+            setNum: this.exercises[i].workout[j].setNum,
+            sets: this.exercises[i].workout[j].sets,
+            counter: 0
+          };
+          //console.log(newExercise)
+          this.exercisesArray.push(newExercise);
         }
       }
-      if (this.exercisesArray[0] == undefined){
-        console.log("REST DAY")
-        this.restday = true
-      }
-    });
+    }
+    console.log("ExerciseArry")
+    console.log(this.exercises)
+    if (this.exercisesArray[0] == undefined){
+      console.log("REST DAY")
+      this.restday = true
+    } else {
+      console.log("RUNNING_NOTREST")
+      this.restday = false
+    }
   }
 
   ngOnInit() {
     this.exe = this.itemService.getCounter();
-    console.log(this.exe)
+    //console.log(this.exe)
   }
- 
+
+
+
+
   exerciseDetail(id) {
   this.itemService.setExtras(id)
   this.router.navigate(['/exercise-detail']);

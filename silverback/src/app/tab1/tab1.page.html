@@ -10,6 +10,7 @@
   <h1 *ngIf="restday" style="text-align: center">REST DAY</h1>
   <ion-img *ngIf="restday" [src]="restdaygif"></ion-img>
 
+
 <ion-list>
     <ion-item *ngFor="let exercise of exercisesArray" (click)="exerciseDetail(exercise)" color="dark">
       <ion-grid>
