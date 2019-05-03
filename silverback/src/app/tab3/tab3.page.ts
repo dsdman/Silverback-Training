@@ -39,11 +39,11 @@ export class Tab3Page {
 
   ngOnInit() {
   	this.new_item_form = this.formBuilder.group({
-      name: new FormControl('blah', Validators.required),
-      weight: new FormControl('130', Validators.required),
-      level: new FormControl('Expert', Validators.required),
-      avail: new FormControl('Friday', Validators.required),
-      gender: new FormControl('Male', Validators.required),
+      name: new FormControl('', Validators.required),
+      weight: new FormControl('', Validators.required),
+      level: new FormControl('', Validators.required),
+      avail: new FormControl('', Validators.required),
+      gender: new FormControl('', Validators.required),
     });
     //console.log(this.infoArray[3][1])
     this.name = this.infoArray[3][1];
