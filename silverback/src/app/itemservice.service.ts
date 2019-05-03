@@ -24,7 +24,7 @@ export class ItemserviceService {
                 [0.1,0.08,0.11,0.61,1,0.34,0.27,0.05,1,0.19,0.66,0.47], [0.39,0.38,0.44,1.37,6,0.77,0.77,0.22,20,1.05,2.21,1.13],[0.5,0.88,0.96,2.44,20,1.38,1.53,0.54,50,2.58,4.66,2.13]];
 
   maletable = [["Barbell Curl" ,"Skullcrusher","Triceps Pushdown - Rope Attachment","Deadlift","pullup","pully row","Bench Press","Chest Fly","Push-Up","Calf Raise","Leg Press","Squat"], 
-              [0.25,0.24,0.23,1.09, 1, 0.58 ,0.068, 0.1, 0.43,1.13,0.91], [.58,.60,0.63,1.87,15,1.09,1.23,.34,45,1.32,2.85,1.61],[1.09,1.13,1.25,2.86,36,1.74,1.93,0.74,100,2.7,4.98,2.52]];                  
+              [0.25,0.24,0.23,1.09, 1, 0.58 ,0.068, 0.1, 1,0.43,1.13,0.91], [.58,.60,0.63,1.87,15,1.09,1.23,.34,45,1.32,2.85,1.61],[1.09,1.13,1.25,2.86,36,1.74,1.93,0.74,100,2.7,4.98,2.52]];                  
 
   constructor() { 
     var refs = firebase.database().ref('BackPreset/');
@@ -67,6 +67,7 @@ export class ItemserviceService {
 
   //THIS IS THE MOTHERLOAD OF CODE THAT REGENERATERS PLAN
   public generatePlan(user) {
+    
     let FinalPlan = []
     this.backpre = []
     this.armpre = []
@@ -219,7 +220,9 @@ private malestrengthtable(weight, skill, exercise){
       }
     var exerName = exercise[index].name
     //loop through the exercise names
+    console.log(this.maletable[1][0])
     for(let i = 0; i < this.maletable[0].length; i++){
+      
       if(exerName == this.maletable[0][i]){
         //tempweight = this.round5(Number(this.maletable[skillNum][i]) * weight);
         tempweight = this.round5(Number(this.maletable[skillNum][i]) * weight);

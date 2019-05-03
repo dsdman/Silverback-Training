@@ -61,6 +61,8 @@ export class Tab1Page implements OnInit {
       //console.log("RUNNING_NOTREST")
       this.restday = false
     }
+
+    
   }
 
   ngOnInit() {
