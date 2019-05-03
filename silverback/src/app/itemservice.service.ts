@@ -5,7 +5,6 @@ import * as firebase from 'firebase/app';
   providedIn: 'root'
 })
 export class ItemserviceService {
-  userId = firebase.auth().currentUser.uid;
   //THIS IS FOR EVERYTHING NOT GENERATED
   exe:any;
   day:any;
